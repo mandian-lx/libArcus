@@ -20,7 +20,7 @@ Patch0:		%{name}-2.5.0-CMakeLists.patch
 
 BuildRequires:	cmake
 BuildRequires:	protobuf-compiler > 3.0.0
-BuildRequires:	protobuf-devel #pkgconfig(protobuf) > 3.0.0
+BuildRequires:	pkgconfig(protobuf) > 3.0.0
 BuildRequires:	pkgconfig(python)
 BuildRequires:	python3egg(protobuf) > 3.0.0
 BuildRequires:	python3-sip
