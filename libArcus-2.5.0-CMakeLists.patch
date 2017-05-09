@@ -1,0 +1,11 @@
+--- libArcus-2.5.0/CMakeLists.txt.orig
++++ libArcus-2.5.0/CMakeLists.txt
+@@ -55,7 +57,7 @@
+ set(ARCUS_VERSION 1.1.0)
+ set(ARCUS_SOVERSION 3)
+ 
+-set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
++#set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
+ 
+ if(BUILD_STATIC)
+     add_library(Arcus STATIC ${arcus_SRCS})
