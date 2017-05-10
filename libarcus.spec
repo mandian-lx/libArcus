@@ -3,31 +3,30 @@
 
 %define major 3
 %define liboldver 1.1.0
-%define libname %mklibname %{oname} %{major}
-%define devname %mklibname %{oname} -d
+%define libname %mklibname %{lname} %{major}
+%define devname %mklibname %{lname} -d
 
-%define pyname python-%{oname}
+%define pyname python-%{lname}
 
 Summary:	Communication library between internal components for Ultimaker software
-Name:		lib%{oname}
+Name:		lib%{lname}
 Version:	2.5.0
-Release:	0
+Release:	1
 Group:		Development/Other
 License:	AGPLv3+
 URL:		https://github.com/Ultimaker/libArcus
-Source0:	https://github.com/Ultimaker/libArcus/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:		%{name}-2.5.0-CMakeLists.patch
+Source0:	https://github.com/Ultimaker/libArcus/archive/%{version}/lib%{oname}-%{version}.tar.gz
 
 BuildRequires:	cmake
 BuildRequires:	protobuf-compiler > 3.0.0
 BuildRequires:	pkgconfig(protobuf) > 3.0.0
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	python3egg(protobuf) > 3.0.0
-BuildRequires:	python3-sip
- 
+BuildRequires:	python-sip
+
 %description
-libArcus contains C++ code and Python3 bindings for creating a socket in a
-thread and using this socket to send and receive messages based on the
+%{oname} library contains C++ code and Python3 bindings for creating a socket
+in a thread and using this socket to send and receive messages based on the
 Protocol Buffers library. It is designed to facilitate the communication
 between Cura and its backend and similar code.
 
@@ -37,11 +36,12 @@ between Cura and its backend and similar code.
 Summary:	Communication library between internal components for Ultimaker software
 License:	Apache License
 Group:		System/Libraries
+Provides:	%{lname} = %{version}-%{release}
 Provides:	%{oname} = %{version}-%{release}
 
 %description -n %{libname}
-Arcus contains C++ code and Python3 bindings for creating a socket in a
-thread and using this socket to send and receive messages based on the
+Arcus library contains C++ code and Python3 bindings for creating a socket
+in a thread and using this socket to send and receive messages based on the
 Protocol Buffers library. It is designed to facilitate the communication
 between Cura and its backend and similar code.
 
@@ -56,7 +56,8 @@ between Cura and its backend and similar code.
 Summary:	Headers, libraries and docs for the %{oname} library
 Group:		Development/C++
 Requires:	%{libname} = %{version}-%{release}
-Provides:	%{name}-devel = %{version}-%{release}
+Provides:	%{lname}-devel = %{version}-%{release}
+Provides:	%{oname}-devel = %{version}-%{release}
 
 %description -n %{devname}
 Arcus contains C++ code and Python3 bindings for creating a socket in a
@@ -64,7 +65,7 @@ thread and using this socket to send and receive messages based on the
 Protocol Buffers library. It is designed to facilitate the communication
 between Cura and its backend and similar code.
 
-This package provides development files for %{name} library.
+This package provides development files for %{oname} library.
 
 %files -n %{devname}
 %{_includedir}/%{oname}
@@ -103,15 +104,13 @@ This package provides the Python3 binding for %{oname}.
 #----------------------------------------------------------------------------
 
 %prep
-%setup -q
-
-# Apply all patches
-%patch0 -p1 -b .orig
+%setup -q -n lib%{oname}-%{version}
 
 %build
 %cmake \
 	-DBUILD_STATIC:BOOL=OFF \
 	-DBUILD_PYTHON:BOOL=ON \
+	-DCMAKE_SKIP_RPATH:BOOL=ON \
 	-DBUILD_EXAMPLES:BOOL=OFF \
 	-DPYTHON_SITE_PACKAGES_DIR=%{py_platsitedir} \
 	%{nil}
