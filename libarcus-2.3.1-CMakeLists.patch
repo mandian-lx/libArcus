@@ -1,8 +1,8 @@
 --- libArcus-2.3.1/CMakeLists.txt.orig
 +++ libArcus-2.3.1/CMakeLists.txt
 @@ -13,6 +13,8 @@
- set(protobuf_MODULE_COMPATIBLE ON CACHE "" INTERNAL FORCE)
- find_package(Protobuf 3.0.0 REQUIRED)
+ set(REQUIRED_PROTOBUF_VERSION 3.0.0)
+ find_package(Protobuf ${REQUIRED_PROTOBUF_VERSION} REQUIRED)
  
 +find_package (Threads)
 +
