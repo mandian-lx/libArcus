@@ -16,6 +16,7 @@ Group:		Development/Other
 License:	AGPLv3+
 URL:		https://github.com/Ultimaker/libArcus
 Source0:	https://github.com/Ultimaker/libArcus/archive/%{version}/lib%{oname}-%{version}.tar.gz
+Patch0:		%{name}-2.3.1-CMakeLists.patch
 
 BuildRequires:	cmake
 BuildRequires:	protobuf-compiler > 3.0.0
@@ -105,6 +106,9 @@ This package provides the Python3 binding for %{oname}.
 
 %prep
 %setup -q -n lib%{oname}-%{version}
+
+# Apply all patches
+%patch0 -p1 -b .orig
 
 %build
 %cmake \

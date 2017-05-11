@@ -1,0 +1,28 @@
+--- libArcus-2.3.1/CMakeLists.txt.orig
++++ libArcus-2.3.1/CMakeLists.txt
+@@ -13,6 +13,8 @@
+ set(protobuf_MODULE_COMPATIBLE ON CACHE "" INTERNAL FORCE)
+ find_package(Protobuf 3.0.0 REQUIRED)
+ 
++find_package (Threads)
++
+ if(BUILD_PYTHON)
+     set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+     find_package(SIP REQUIRED)
+@@ -55,7 +57,7 @@
+ set(ARCUS_VERSION 1.1.0)
+ set(ARCUS_SOVERSION 3)
+ 
+-set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
++#set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
+ 
+ if(BUILD_STATIC)
+     add_library(Arcus STATIC ${arcus_SRCS})
+@@ -65,6 +67,7 @@
+     endif()
+ else()
+     add_library(Arcus SHARED ${arcus_SRCS})
++    target_link_libraries (Arcus PUBLIC ${CMAKE_THREAD_LIBS_INIT})
+ endif()
+ 
+ if(MSVC_STATIC_RUNTIME)
