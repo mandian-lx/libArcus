@@ -10,7 +10,7 @@
 
 Summary:	Communication library between internal components for Ultimaker software
 Name:		lib%{lname}
-Version:	2.5.0
+Version:	2.3.1
 Release:	1
 Group:		Development/Other
 License:	AGPLv3+
